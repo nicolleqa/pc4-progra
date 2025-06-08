@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Crear Usuario</h1>
+    <form method="post" action="/User/Create">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre:</label>
+            <input type="text" id="name" name="Name" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Crear Usuario</button>
+    </form>
+</div>
