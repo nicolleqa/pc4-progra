@@ -3,23 +3,29 @@ using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 using System.Collections.Generic;
 using System.Linq;
+using pc4_progra.Data;
 
 public class ProductRecommendationModel
 {
     private readonly MLContext _mlContext;
     private readonly ITransformer _model;
+    private readonly Dictionary<string, string> _productDictionary;
 
-    public ProductRecommendationModel()
+    public ProductRecommendationModel(ApplicationDbContext dbContext)
     {
         _mlContext = new MLContext();
+
+        // Cargar productos desde la base de datos
+        _productDictionary = dbContext.Products
+            .ToDictionary(p => p.ProductId, p => p.Name);
 
         var trainingData = _mlContext.Data.LoadFromTextFile<ProductInteraction>(
             "Data/ratings-data.csv", hasHeader: true, separatorChar: ',');
 
         var dataProcessingPipeline = _mlContext.Transforms.Conversion
-          .MapValueToKey(outputColumnName: "UserIdEncoded", inputColumnName: nameof(ProductInteraction.UserId))
-          .Append(_mlContext.Transforms.Conversion
-            .MapValueToKey(outputColumnName: "ProductIdEncoded", inputColumnName: nameof(ProductInteraction.ProductId)));
+            .MapValueToKey(outputColumnName: "UserIdEncoded", inputColumnName: nameof(ProductInteraction.UserId))
+            .Append(_mlContext.Transforms.Conversion
+                .MapValueToKey(outputColumnName: "ProductIdEncoded", inputColumnName: nameof(ProductInteraction.ProductId)));
 
         var options = new MatrixFactorizationTrainer.Options
         {
@@ -42,8 +48,17 @@ public class ProductRecommendationModel
         var recommendations = new List<ProductScore>();
         for (int productId = 1; productId <= 100; productId++)
         {
-            var prediction = predictionEngine.Predict(new ProductInteraction { UserId = userId, ProductId = $"P{productId}" });
-            recommendations.Add(new ProductScore { ProductId = $"P{productId}", Score = prediction.Score });
+            var productKey = $"P{productId}";
+            if (_productDictionary.ContainsKey(productKey))
+            {
+                var prediction = predictionEngine.Predict(new ProductInteraction { UserId = userId, ProductId = productKey });
+                recommendations.Add(new ProductScore
+                {
+                    ProductId = productKey,
+                    ProductName = _productDictionary[productKey], // Obtener el nombre del producto desde la bd
+                    Score = prediction.Score
+                });
+            }
         }
 
         return recommendations.OrderByDescending(r => r.Score).Take(topN);

@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using pc4_progra.Data;
 
 public class RecommendationController : Controller
 {
-    private readonly ProductRecommendationModel _recommendationModel;
+    private readonly ApplicationDbContext _dbContext;
 
-    public RecommendationController()
+    public RecommendationController(ApplicationDbContext dbContext)
     {
-        _recommendationModel = new ProductRecommendationModel();
+        _dbContext = dbContext;
     }
 
     [HttpGet]
@@ -18,7 +19,8 @@ public class RecommendationController : Controller
     [HttpPost]
     public IActionResult Recommend(string userId)
     {
-        var recommendations = _recommendationModel.Recommend(userId);
+        var recommendationModel = new ProductRecommendationModel(_dbContext);
+        var recommendations = recommendationModel.Recommend(userId);
         return View("RecommendationResult", recommendations);
     }
 }

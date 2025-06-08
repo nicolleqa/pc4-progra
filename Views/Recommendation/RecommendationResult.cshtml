@@ -8,12 +8,18 @@
         @foreach (var recommendation in Model)
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                Producto ID: @recommendation.ProductId
-                <span class="badge bg-primary rounded-pill">Score: @recommendation.Score</span>
+                <div>
+                    <strong>@recommendation.ProductName</strong> (ID: @recommendation.ProductId)
+                </div>
+                <span class="badge rounded-pill" style="background-color: #71BC85; color: white;">
+                    Score: @recommendation.Score
+                </span>
             </li>
         }
     </ul>
     <div class="text-center mt-4">
-        <a href="/Recommendation/Recommend" class="btn btn-secondary">Volver</a>
+        <a href="/Recommendation/Recommend" class="btn" style="background-color: #096623; border-color: #096623; color: white;">
+            Volver
+        </a>
     </div>
 </div>

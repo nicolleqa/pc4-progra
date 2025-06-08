@@ -2,13 +2,15 @@
     ViewData["Title"] = "Recomendación de Productos";
 }
 
-<div class="container mt-5">
-    <h1 class="text-center">Recomendación de Productos</h1>
-    <form method="post" action="/Recommendation/Recommend">
+<div class="container mt-5" style="background-color: #71BC85; border-radius: 10px; padding: 20px;">
+    <h1 class="text-center" style="color: white; font-weight: bold;">Recomendación de Productos</h1>
+    <form method="post" action="/Recommendation/Recommend" class="mt-4">
         <div class="mb-3">
-            <label for="userId" class="form-label">Ingresa tu ID de usuario:</label>
-            <input type="text" id="userId" name="userId" class="form-control" required />
+            <label for="userId" class="form-label" style="color: white; font-weight: bold;">Ingresa tu ID de usuario:</label>
+            <input type="text" id="userId" name="userId" class="form-control" required oninput="this.value = this.value.toUpperCase()" style="border: 1px solid #096623; border-radius: 5px;" />
         </div>
-        <button type="submit" class="btn btn-primary w-100">Obtener Recomendaciones</button>
+        <button type="submit" class="btn w-100" style="background-color: #096623; border-color: #096623; color: white; padding: 10px 20px; font-size: 16px; border-radius: 8px;">
+            Obtener Recomendaciones
+        </button>
     </form>
 </div>
