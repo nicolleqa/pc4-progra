@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Resultado del Análisis de Sentimiento";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="p-4" style="border-radius: 10px;">
+                <h2 class="text-black text-center mb-4" style="font-weight: 700;">Resultado del Análisis</h2>
+                <div class="text-center">
+                    <div class="fs-4 d-flex align-items-center justify-content-center" style="margin-bottom: 10px;">
+                      <p class="mb-0 me-2" style="font-weight: 600;">Predicción:</p>
+                      <span class="badge @(Model.Prediction ? "bg-success" : "bg-danger")">
+                        @(Model.Prediction ? "Positivo 😊" : "Negativo 😢")
+                      </span>
+                    </div>
+                    <div class="fs-4 d-flex align-items-center justify-content-center" style="margin-bottom: 10px;">
+                      <p class="mb-0 me-2" style="font-weight: 600;">Score:</p>
+                        <span>@Model.Score</span>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="/Sentiment/Analyze" class="btn w-100" style="background-color: #388E3C; color: white; border: none;">Volver al Análisis</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

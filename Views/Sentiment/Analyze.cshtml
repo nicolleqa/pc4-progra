@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Análisis de Sentimiento";
+}
+
+<div class="container mt-5" style="background-color: #71bc85; padding: 20px; border-radius: 10px;">
+    <h1 class="text-white text-center mb-4">Análisis de Sentimiento</h1>
+    <form method="post" action="/Sentiment/Analyze">
+        <div class="mb-3">
+            <label for="opinion" class="form-label text-white">Escribe tu opinión:</label>
+            <textarea id="opinion" name="userOpinion" class="form-control" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn w-100" style="background-color: #096623; color: white; border: none;">Clic aquí para analizar</button>
+    </form>
+</div>
