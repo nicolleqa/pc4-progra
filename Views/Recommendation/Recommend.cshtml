@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Recomendación de Productos";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Recomendación de Productos</h1>
+    <form method="post" action="/Recommendation/Recommend">
+        <div class="mb-3">
+            <label for="userId" class="form-label">Ingresa tu ID de usuario:</label>
+            <input type="text" id="userId" name="userId" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Obtener Recomendaciones</button>
+    </form>
+</div>

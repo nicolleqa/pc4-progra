@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Resultados de Recomendación";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Productos Recomendados</h1>
+    <ul class="list-group mt-4">
+        @foreach (var recommendation in Model)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Producto ID: @recommendation.ProductId
+                <span class="badge bg-primary rounded-pill">Score: @recommendation.Score</span>
+            </li>
+        }
+    </ul>
+    <div class="text-center mt-4">
+        <a href="/Recommendation/Recommend" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
